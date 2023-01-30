@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate')%>
+
+
+<div class="row">
+    <h1 class="text-center">Edit Campground</h1>
+    <div class="col-6 offset-3">
+        <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST">
+    <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="campground[title]" value="<%=campground.title%>"">
+    </div>
+<div class="mb-3">
+<label for="price" class="form-label" value="<%=campground.price%>">Campground Price</label>
+    <div class="input-group">
+        <span class="input-group-text" id="price-label">£</span>
+        <input id="price" name="campground[price]" type="text" class="form-control" placeholder="0.00" aria-label="Amount (to the nearest pound)" value="<%=campground.price%>">
+      </div>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" value="<%=campground.location%>">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="image">Image Url</label>
+        <input class="form-control" type="text" id="image" name="campground[image]" value="<%=campground.image%>">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="campground[description]" cols="30" rows="10" class="form-control"><%=campground.description%></textarea>
+    </div>
+    <div class="mb-3">
+    <button class="btn btn-success">Update</button>
+</div>
+<div>
+    <a href="/campgrounds/">All Campground</a>
+</div>
+</form>
+</div>
+</div>
