@@ -4,7 +4,7 @@ const path = require('path');
 const { campgroundSchema, reviewSchema } = require('./schemas.js')
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate'); 
-const flash = require('expres-flash')
+const flash = require('express-flash')
 const ExpressError = require('./utils/ExpressError')
 const Campground = require('./models/campground');
 const methodOverrride = require('method-override');
@@ -45,6 +45,12 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig))
 app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error')
+    next();
+})
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews)
