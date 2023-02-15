@@ -13,7 +13,6 @@ const campground = require('./models/campground');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');  
-
 const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
 const campgroundRoutes = require("./routes/campgrounds")
