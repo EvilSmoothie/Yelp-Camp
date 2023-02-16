@@ -40,7 +40,9 @@ module.exports.isReviewAuthor = async (req, res, next) => {
         req.flash ('error', 'You do not have permission to do that!');
         return res.redirect(`/campgrounds/${id}`)
     } 
+    next();
 }
+
 
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
