@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 const Review = require('./review'); 
 const Schema = mongoose.Schema; 
@@ -15,6 +16,17 @@ ImageSchema.virtual('thumbnail').get(function() {
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
+    geometry: { 
+        type: {
+            type: String,
+            enum: ['Point'],
+        required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     price: Number,
     description: String,
     location: String,
