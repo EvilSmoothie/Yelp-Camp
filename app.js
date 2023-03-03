@@ -21,6 +21,7 @@ const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
 const campgroundRoutes = require("./routes/campgrounds")
 const session = require('express-session');
+const helmet = require('helmet');
 
 
 
@@ -40,16 +41,19 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverrride('_method'))
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet({contentSecurityPolicy: false}))
 
 
 
 
 const sessionConfig = {
+    name: 'session',
     secret: 'thisshouldbeabettersecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
