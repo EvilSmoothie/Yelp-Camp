@@ -1,7 +1,7 @@
-const { required } = require('joi');
 const mongoose = require('mongoose');
 const Review = require('./review'); 
 const Schema = mongoose.Schema; 
+
 
 
 const ImageSchema = new Schema ({
@@ -12,6 +12,8 @@ const ImageSchema = new Schema ({
 ImageSchema.virtual('thumbnail').get(function() {
    return this.url.replace('/upload', '/upload/w_100')
 })
+
+const opts = { toJSON: {virtuals: true}}
 
 const CampgroundSchema = new Schema({
     title: String,
@@ -40,7 +42,15 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
-})
+}, opts)
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+   return `
+   <strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+   <p>${this.description.substring(0, 30)}...</p>
+   `
+});
+
 
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
